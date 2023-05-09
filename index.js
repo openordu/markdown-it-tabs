@@ -41,13 +41,13 @@ module.exports = function (md, opts) {
             token.hidden = true;
 
             checked = i - idx > 0 ? '' : ' checked';
-            labels += `<li><input type="radio" name="label-group-${idx}"${checked}>` +
+            labels += `<li><input class="markdown-it-tab" type="radio" name="label-group-${idx}"${checked}>` +
                 `<label for="group-${idx}-tab-${i - idx}" onclick="this.previousElementSibling.click()">${tab || getLangName(token)}</label></li>\n`;
-            pres += `<input type="radio" id="group-${idx}-tab-${i - idx}" name="group-${idx}"${checked}>\n` +
+            pres += `<input type="radio" class="markdown-it-tab-content" id="group-${idx}-tab-${i - idx}" name="group-${idx}"${checked}>\n` +
                 defaultRender(tokens, i, options, env, slf);
         }
     
-        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + pres + '</div>';
+        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + md.render(pres.replace(/<(\/)?(pre|code)[^>]*>/g, '')) + '</div>';
     }
 
     md.renderer.rules.fence = fenceGroup;

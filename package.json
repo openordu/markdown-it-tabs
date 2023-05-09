@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-tabs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Show your code blocks in different tabs.",
   "main": "index.js",
   "repository": {
