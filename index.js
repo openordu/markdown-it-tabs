@@ -47,7 +47,9 @@ module.exports = function (md, opts) {
                 defaultRender(tokens, i, options, env, slf) + "</div>";
         }
         var cleanedValue = pres.replace(/<(\/)?(pre|code)[^>]*>/g, '');
-        cleanedValue = cleanedValue.replace(/~~~(\w+)\n([\s\S]*?)\n~~~/g, '<pre><code class="language-$1">$2</code></pre>').replace(/`([^`]+)`/g, '<code>$1</code>')
+        cleanedValue = cleanedValue..replace(/~~~(\w*)\n([\s\S]*?)\n~~~/g, (match, lang, content) => {
+            return `<pre><code${lang ? ` class="language-${lang}"` : ''}>${content}</code></pre>`;
+          }).replace(/`([^`]+)`/g, '<code>$1</code>')
     
         return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + cleanedValue + '</div>';
     }
