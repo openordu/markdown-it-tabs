@@ -43,16 +43,26 @@ module.exports = function (md, opts) {
             checked = i - idx > 0 ? '' : ' checked';
             labels += `<li><input class="markdown-it-tab" type="radio" name="label-group-${idx}"${checked}>` +
                 `<label for="group-${idx}-tab-${i - idx}" onclick="this.previousElementSibling.click()">${tab || getLangName(token)}</label></li>\n`;
-            pres += `<input type="radio" class="markdown-it-tab-content" id="group-${idx}-tab-${i - idx}" name="group-${idx}"${checked}>\n<div class="tab-content">` +
-                defaultRender(tokens, i, options, env, slf) + "</div>";
-        }
-        var cleanedValue = pres.replace(/<(\/)?(pre|code)[^>]*>/g, '');
-        cleanedValue = cleanedValue.replace(/~~~(\w*)\n([\s\S]*?)\n~~~/g, (match, lang, content) => {
-            return `<pre><code${lang ? ` class="language-${lang}"` : ''}>${content}</code></pre>`;
-          }).replace(/`([^`]+)`/g, '<code>$1</code>')
-    
-        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + cleanedValue + '</div>';
-    }
 
+            md.renderer.rules.fence = originalFenceRule;
+
+            pres += `<input type="radio" class="markdown-it-tab-content" id="group-${idx}-tab-${i - idx}" name="group-${idx}"${checked}>\n<div class="tab-content">` +
+                md.render(defaultRender(tokens, i, options, env, slf).replace(/<(\/)?(pre|code)[^>]*>/g, '')) + "</div>";
+
+            md.renderer.rules.fence = fenceGroup;
+        }
+
+        // Unset the custom fence rule
+
+        // var cleanedValue = pres.replace(/<(\/)?(pre|code)[^>]*>/g, '');
+        // cleanedValue = cleanedValue.replace(/~~~(\w*)\n([\s\S]*?)\n~~~/g, (match, lang, content) => {
+        //     return `<pre><code${lang ? ` class="language-${lang}"` : ''}>${content}</code></pre>`;
+        //   }).replace(/`([^`]+)`/g, '<code>$1</code>')
+    
+        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + pres + '</div>';
+    }
+    // Store the original fence rule in a variable
+    const originalFenceRule = md.renderer.rules.fence;
+    
     md.renderer.rules.fence = fenceGroup;
 };
