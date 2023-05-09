@@ -1,0 +1,24 @@
+{
+  "name": "markdown-it-tabs",
+  "version": "1.0.0",
+  "description": "Show your code blocks in different tabs.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/openordu/markdown-it-tabs.git"
+  },
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin",
+    "tabs"
+  ],
+  "author": "Christopher Godwin<patchshorts@gmail.com>",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/openordu/markdown-it-tabs/issues"
+  },
+  "homepage": "https://github.com/openordu/markdown-it-tabs#readme",
+  "devDependencies": {
+    "markdown-it": "^12.0.4"
+  }
+}
