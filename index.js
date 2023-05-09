@@ -46,8 +46,10 @@ module.exports = function (md, opts) {
             pres += `<input type="radio" class="markdown-it-tab-content" id="group-${idx}-tab-${i - idx}" name="group-${idx}"${checked}>\n<div class="tab-content">` +
                 defaultRender(tokens, i, options, env, slf) + "</div>";
         }
+        var cleanedValue = pres.replace(/<(\/)?(pre|code)[^>]*>/g, '');
+        cleanedValue = cleanedValue.replace(/~~~(\w+)\n([\s\S]*?)\n~~~/g, '<pre><code class="language-$1">$2</code></pre>').replace(/`([^`]+)`/g, '<code>$1</code>')
     
-        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + md.render(pres.replace(/<(\/)?(pre|code)[^>]*>/g, '')) + '</div>';
+        return  '<div class="code-tabs">\n<ul>\n' + labels + '</ul>\n' + cleanedValue + '</div>';
     }
 
     md.renderer.rules.fence = fenceGroup;
