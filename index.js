@@ -47,7 +47,7 @@ module.exports = function (md, opts) {
                 defaultRender(tokens, i, options, env, slf) + "</div>";
         }
         var cleanedValue = pres.replace(/<(\/)?(pre|code)[^>]*>/g, '');
-        cleanedValue = cleanedValue..replace(/~~~(\w*)\n([\s\S]*?)\n~~~/g, (match, lang, content) => {
+        cleanedValue = cleanedValue.replace(/~~~(\w*)\n([\s\S]*?)\n~~~/g, (match, lang, content) => {
             return `<pre><code${lang ? ` class="language-${lang}"` : ''}>${content}</code></pre>`;
           }).replace(/`([^`]+)`/g, '<code>$1</code>')
     
